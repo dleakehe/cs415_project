@@ -1,0 +1,11 @@
+version: 0.0
+os: linux
+files:
+  - source: build/
+    destination: /var/www/html/
+
+file_exists_behavior: OVERWRITE
+
+Hooks:
+  - BeforeInstall: scripts/start_apps.sh
+  - AfterInstall: scripts/stop_apps.sh

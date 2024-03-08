@@ -80,10 +80,11 @@ class Races(models.Model):
 
 class User(models.Model):
     user_id = models.AutoField(primary_key=True)
-    username = models.CharField(max_length=30, blank=True, null=True)
+    first_name = models.CharField(max_length=30, blank=True, null=True)
     pass_field = models.CharField(db_column='pass', max_length=30, blank=True, null=True)  # Field renamed because it was a Python reserved word.
-    characterid = models.IntegerField(db_column='characterID')  # Field name made lowercase.
-
+    email =  models.CharField(max_length=30, blank=True, null=True)
+    last_name = models.CharField(max_length=30, blank=True, null=True)
+    
     class Meta:
         managed = False
         db_table = 'User'
