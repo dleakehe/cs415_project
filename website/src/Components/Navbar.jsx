@@ -32,8 +32,8 @@ function NavbarTop() {
                 <Nav.Item><Link to="/" className="navbar-item">Home</Link></Nav.Item>
                 <Nav.Item><Link to="/login" className="navbar-item">Login</Link></Nav.Item>
                 <Nav.Item><Link to="/userprofile" className="navbar-item">User Profile</Link></Nav.Item>
-                <Nav.Item><Link to="/users" className="navbar-item">Users</Link></Nav.Item>
-                <Nav.Menu title="Modules" className="navbar-item">
+                <Nav.Item><Link to="/characters" className="navbar-item">Characters</Link></Nav.Item>
+                <Nav.Menu title="Resources" className="navbar-item">
                     {
                         pages.map((page,i) => (
                             <Nav.Item>

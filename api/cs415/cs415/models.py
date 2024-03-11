@@ -11,6 +11,7 @@ class Characters(models.Model):
     raceid = models.ForeignKey('Races', models.DO_NOTHING, db_column='raceID')  # Field name made lowercase.
     classid = models.ForeignKey('Classes', models.DO_NOTHING, db_column='classID')  # Field name made lowercase.
     user = models.ForeignKey('User', models.DO_NOTHING)
+    level = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -84,6 +85,8 @@ class User(models.Model):
     pass_field = models.CharField(db_column='pass', max_length=30, blank=True, null=True)  # Field renamed because it was a Python reserved word.
     email =  models.CharField(max_length=30, blank=True, null=True)
     last_name = models.CharField(max_length=30, blank=True, null=True)
+    last_login = models.CharField(max_length=100, blank=True, null=True)
+    
     
     class Meta:
         managed = False

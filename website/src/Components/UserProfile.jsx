@@ -8,33 +8,21 @@ const UserProfile = () => {
     const navigate = useNavigate();
     const [userColumns, setUserColumns] = useState([]);
     const [record, setRecord] = useState([]);
-    const [addressColumns, setAddressColumns] = useState([]);
-    const [addresses, setAddresses] = useState([]);
-    const [phoneColumns, setPhoneColumns] = useState([]);
-    const [phones, setPhones] = useState([]);
-    const [infoColumns, setInfoColumns] = useState([]);
-    const [info, setInfo] = useState([]);
-    const [picLink, setPicLink] = useState();
-    const [infoBio, setInfoBio] = useState();
-    const user_id = window.sessionStorage.getItem("user_id")
+    const [players, setPlayers]  = useState([]);
+    const [playersColumns, setPlayersColumns] = useState([]);
+    const user_id = window.sessionStorage.getItem("user_id");
 
 
     useEffect(() => {
         if (!window.sessionStorage.getItem("auth")) navigate('/unauthorized')
-        fetch(process.env.REACT_APP_API_URL_BASE + '/users/user/' + user_id)
+        fetch('http://localhost:8000/users/user/' + user_id)
         .then(res => res.json())
         .then(data => {
             console.log(data)
             setUserColumns(Object.keys(data.user))
             setRecord(data.user)
-            setInfoColumns(Object.keys(data.info[0]))
-            setInfo(data.info)
-            setInfoBio(data.info[0].profile_bio)
-            setPicLink(data.info[0].profile_picture)
-            setAddressColumns(Object.keys(data.addresses[0]))
-            setAddresses(data.addresses)
-            setPhoneColumns(Object.keys(data.phones[0]))
-            setPhones(data.phones)
+            setPlayersColumns(Object.keys(data.characters[0]))
+            setPlayers(data.characters)
         })
         .catch(error => console.error(error));
     }, []);
@@ -57,11 +45,6 @@ const UserProfile = () => {
                     <MDBRow>
                         <MDBCol>
                             <div className="container">
-                            <img
-                                src={picLink}
-                                alt={record.first_name}
-                                style={{ width: "20%", borderRadius: "48%" }}
-                            />
                             </div>
                         </MDBCol>
                     </MDBRow>
@@ -69,8 +52,6 @@ const UserProfile = () => {
                         <MDBCol>
                             <div class="container">
                                 <h3>{record.first_name} {record.last_name}</h3>
-
-                                <p>{infoBio}</p>
                             </div>
 
                         </MDBCol>
@@ -81,7 +62,6 @@ const UserProfile = () => {
                                 <tr>
                                     <th key="1">USER ID</th>
                                     <th key="2">EMAIL</th>
-                                    <th key="3">USER SINCE</th>
                                     <th key="4">LAST LOGIN</th>
 
                                 </tr>
@@ -91,7 +71,6 @@ const UserProfile = () => {
                                     <tr key={record.user_id}>
                                         <td>{record.user_id}</td>
                                         <td>{record.email}</td>
-                                        <td>{new Date(record.created_date).toLocaleDateString()}</td>
                                         <td>{new Date(record.last_login).toLocaleString()}</td>
                                     </tr>
                                 }
@@ -103,59 +82,37 @@ const UserProfile = () => {
             </div>
         </div>
 
-         <br />
-        <h2>Address</h2>
-        <table className='user-table'>
-            <thead>
-                <tr>
-                    {
-                        addressColumns.map((c, i) => (<th key={i}>{c.replaceAll("_", " ").toUpperCase()}</th>))
-                    }
-                </tr>
-            </thead>
-            <tbody>
-                {
-                    addresses.map((address,i) => (
-                    <tr key={address.user_address_id}>
-                        <td>{address.user_address_id}</td>
-                        <td>{address.address_type.address_type}</td>
-                        <td>{address.street_1}</td>
-                        <td>{address.street_2}</td>
-                        <td>{address.city}</td>
-                        <td>{address.st}</td>
-                        <td>{address.zip}</td>
-                        <td>{address.country}</td>
-                        <td>{address.user}</td>
-                    </tr>
-                    ))
-                }
-            </tbody>
-        </table>
+         <br />  
 
-        <h2>Phone</h2>
+        <h2>Characters</h2>
         <table className='user-table'>
             <thead>
                 <tr>
-                    {
-                        phoneColumns.map((c, i) => (<th key={i}>{c.replaceAll("_", " ").toUpperCase()}</th>))
-                    }
+                    <th>NAME</th>
+                    <th>LEVEL</th>
+                    <th>CLASS</th>
+                    <th>RACE</th>
+                    <th>SKILL 1</th>
+                    <th>SKILL 2</th>
+                    <th>SKILL 3</th>
                 </tr>
             </thead>
             <tbody>
                 {
-                    phones.map((phone,i) => (
-                    <tr key={phone.user_phone_id}>
-                        <td>{phone.user_phone_id}</td>
-                        <td>{phone.phone_type.phone_type}</td>
-                        <td>{phone.phone_number}</td>
-                        <td>{new Date(phone.created_date).toLocaleDateString()}</td>
-                        <td>{phone.is_active}</td>
-                        <td>{phone.user}</td>
+                    players.map((players,i) => (
+                    <tr key={players.user_id}>
+                        <td>{players.charname}</td>
+                        <td>{players.level}</td>
+                        <td>{players.class_field}</td>
+                        <td>{players.race}</td>
+                        <td>{players.skill1}</td>
+                        <td>{players.skill2}</td>
+                        <td>{players.skill3}</td>
                     </tr>
                     ))
                 }
             </tbody>
-        </table>
+        </table>  
         <button className="login-button" onClick={handleLogout}>Logout</button>
     </div>
   )

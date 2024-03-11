@@ -28,7 +28,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
+CORS_ORIGIN_WHITELIST = (
+   
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+    "http://localhost:3000",
+    
+)
 # Application definition
 
 INSTALLED_APPS = [
@@ -43,6 +49,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -84,7 +91,7 @@ DATABASES = {
         'NAME': 'cs415website',
         'USER': 'apiuser',
         'PASSWORD': 'apiuserpass',
-        'HOST': '3.88.7.64',
+        'HOST': '54.152.101.59',
         'PORT': '3306'
     }
 }
@@ -108,6 +115,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Turn on/off jwt Auth Header validation
+JWT_AUTH = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

@@ -18,10 +18,10 @@ export const RegisterForm = (props) => {
             first_name: firstName,
             last_name: lastName,
             email: email,
-            password: pass
+            pass_field: pass
         })
         try {
-            fetch(process.env.REACT_APP_API_URL_BASE + '/users/',{
+            fetch('http://localhost:8000/users/',{
             method: 'POST',
             body: payload,
             headers:{
