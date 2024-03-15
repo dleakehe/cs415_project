@@ -37,9 +37,14 @@ CORS_ORIGIN_WHITELIST = (
     
 )
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://54.157.136.87',
+]
+
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'rest_framework',
     'cs415',
     'django.contrib.admin',
